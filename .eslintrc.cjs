@@ -10,5 +10,9 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  rules: {
+    indent: 0,
+    'space-before-function-paren': 0
   }
 }
