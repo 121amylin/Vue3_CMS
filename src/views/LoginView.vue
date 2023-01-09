@@ -1,29 +1,42 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 // import { Edit } from '@element-plus/icons-vue'
+const ruleFormRef = ref()
 const form = reactive({
-  name: '',
+  username: '',
   password: ''
 })
-const onSubmit = () => {
-  console.log('submit!')
+const rules = reactive({
+  username: [{ required: true, message: '請輸入用戶名', trigger: 'blur' }],
+  password: [{ required: true, message: '請輸入密碼', trigger: 'blur' }]
+})
+
+const submitForm = async (formEl) => {
+  if (!formEl) return
+  await formEl.validate((valid, fields) => {
+    if (valid) {
+      console.log('submit!')
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
 }
 </script>
 
 <template>
   <div class="login-container">
-    <el-form :model="form" class="login-form">
+    <el-form :model="form" class="login-form" :rules="rules" ref="ruleFormRef">
       <div class="title-container">
         <h3 class="title">用戶登入</h3>
       </div>
-      <el-form-item>
+      <el-form-item prop="username">
         <svgIcon name="user" color="#fff" class="svg-container" />
         <!-- <el-icon :size="20" class="svg-container">
           <Edit />
         </el-icon> -->
-        <el-input v-model="form.name" />
+        <el-input v-model="form.username" />
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="password">
         <svgIcon name="password" color="#fff" class="svg-container" />
         <!-- <el-icon :size="20" class="svg-container">
           <Edit />
@@ -31,7 +44,10 @@ const onSubmit = () => {
         <el-input v-model="form.password" />
       </el-form-item>
 
-      <el-button class="login-button" type="primary" @click="onSubmit"
+      <el-button
+        class="login-button"
+        type="primary"
+        @click="submitForm(ruleFormRef)"
         >登入</el-button
       >
     </el-form>
