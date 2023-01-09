@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue'
+import { login } from '@/api/login'
 // import { Edit } from '@element-plus/icons-vue'
 const ruleFormRef = ref()
 const form = reactive({
@@ -15,7 +16,9 @@ const submitForm = async (formEl) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!')
+      login(form).then((res) => {
+        console.log(res)
+      })
     } else {
       console.log('error submit!', fields)
     }

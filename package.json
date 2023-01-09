@@ -12,6 +12,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
     "@vue/compiler-sfc": "^3.2.45",
+    "axios": "^1.2.2",
     "element-plus": "^2.2.28",
     "pinia": "^2.0.28",
     "sass": "^1.57.1",
