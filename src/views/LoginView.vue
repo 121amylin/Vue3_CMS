@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue'
-import { Edit } from '@element-plus/icons-vue'
+// import { Edit } from '@element-plus/icons-vue'
 const form = reactive({
   name: '',
   password: ''
@@ -17,15 +17,17 @@ const onSubmit = () => {
         <h3 class="title">用戶登入</h3>
       </div>
       <el-form-item>
-        <el-icon :size="20" class="svg-container">
+        <svgIcon name="user" color="#fff" class="svg-container" />
+        <!-- <el-icon :size="20" class="svg-container">
           <Edit />
-        </el-icon>
+        </el-icon> -->
         <el-input v-model="form.name" />
       </el-form-item>
       <el-form-item>
-        <el-icon :size="20" class="svg-container">
+        <svgIcon name="password" color="#fff" class="svg-container" />
+        <!-- <el-icon :size="20" class="svg-container">
           <Edit />
-        </el-icon>
+        </el-icon> -->
         <el-input v-model="form.password" />
       </el-form-item>
 
