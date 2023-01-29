@@ -1,11 +1,16 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { login } from '@/api/login'
+import { useRouter } from 'vue-router'
+
+import { ElMessage } from 'element-plus'
 // import { Edit } from '@element-plus/icons-vue'
+
+const router = useRouter()
 const ruleFormRef = ref()
 const form = reactive({
-  username: '',
-  password: ''
+  username: 'admin',
+  password: '123456'
 })
 const rules = reactive({
   username: [{ required: true, message: '請輸入用戶名', trigger: 'blur' }],
@@ -14,13 +19,15 @@ const rules = reactive({
 
 const submitForm = async (formEl) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate((valid) => {
     if (valid) {
       login(form).then((res) => {
-        console.log(res)
+        if (res.code === 200) {
+          router.replace('/')
+        } else {
+          ElMessage.error('登入失敗!')
+        }
       })
-    } else {
-      console.log('error submit!', fields)
     }
   })
 }
@@ -44,7 +51,7 @@ const submitForm = async (formEl) => {
         <!-- <el-icon :size="20" class="svg-container">
           <Edit />
         </el-icon> -->
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password" show-password type="password" />
       </el-form-item>
 
       <el-button
